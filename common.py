@@ -1,4 +1,3 @@
-
 import requests
 from bs4 import BeautifulSoup
 from langdetect import detect, DetectorFactory

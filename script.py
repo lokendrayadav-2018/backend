@@ -1,8 +1,6 @@
 import argparse
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import networkx as nx
 from nltk.cluster.util import cosine_distance
 import string
 import math
