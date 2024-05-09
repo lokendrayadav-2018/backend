@@ -2,6 +2,8 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import subprocess
 import sys
+from script import generateSummary
+from common import extract_hindi_content
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
@@ -11,8 +13,9 @@ def run_script():
     data  = request.form
     #  find appropriate text for classification
     text = "";
-    if(data['source']==2):
-        text = data['text']
+    if(data['source']=="2"):
+        temp = data['url']
+        text = extract_hindi_content(temp)
     elif(data['source']==3):
         text = data['text']
     else:
@@ -20,12 +23,10 @@ def run_script():
 
     
     if(data['type']=='1'):
-        result = subprocess.run(['python', 'script.py', '--text', text], capture_output=True, text=True)
-        response_output = result.stdout
-        response_error = result.stderr
+        result  = generateSummary(text)
         return jsonify({
-            'output': response_output,
-            'error': response_error,
+            'output': result,
+            'error': "",
             'status': 200
         }) 
     elif(data['type']=='2'):

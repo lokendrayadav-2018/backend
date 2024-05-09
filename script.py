@@ -10,12 +10,6 @@ import operator
 import nltk
 from nltk.tokenize import SpaceTokenizer
 import re
-from matplotlib.font_manager import FontProperties
-# hindi_font=FontProperties(fname = path+'UI.ttf')
-# import indicnlp
-nltk.download('punkt')
-nltk.download('stopwords')
-
 stopwords=pd.read_csv('./StopwordsHindi.csv')
 stopwords=list(stopwords['stopwords'])
 stopwords.extend(['में','के','है','से'])
@@ -37,6 +31,7 @@ def clean_corpus(corpus):
     return corpus
 
 def get_clean_sentences(doc):
+    type(doc)
     cleaned_doc=clean_corpus(doc)
     sentences=cleaned_doc.split('.')
     sentences=remove_redundant_sentences(sentences)
@@ -126,8 +121,7 @@ def generate_summary_rule_based(clean_sentences,compression_ratio):
         summary+=sentence.strip()+"| "
     return summary
 
-parser = argparse.ArgumentParser(description='Process some inputs.')
-args = parser.parse_args()
-sample=args.text
-clean_sentences=get_clean_sentences(sample)
-summary_rule_based=generate_summary_rule_based(clean_sentences,0.4)
+def generateSummary(sample):
+    clean_sentences=get_clean_sentences(sample)
+    summary_rule_based=generate_summary_rule_based(clean_sentences,0.4)
+    return summary_rule_based
