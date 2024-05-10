@@ -7,12 +7,34 @@ from werkzeug.utils import secure_filename
 from script import generateSummary
 from common import extract_hindi_content
 from common import read_pdf
+from abstrative_summary import generate_abstractive_summary
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app.config['UPLOAD_EXTENSIONS'] = ['.pdf']
 app.config['UPLOAD_PATH'] = 'uploads'
+
+
+
+# Declare these as global to make them accessible in the route handling functions
+global model
+global tokenizer
+
+def load_model():
+    global model
+    global tokenizer
+    try:
+        check_pt = "csebuetnlp/mT5_multilingual_XLSum"
+        print("Loading the T5 model and tokenizer...")
+        tokenizer = AutoTokenizer.from_pretrained(check_pt)
+        model = AutoModelForSeq2SeqLM.from_pretrained(check_pt)
+        print("Model and tokenizer successfully loaded.")
+    except Exception as e:
+        print(f"An error occurred while loading the model: {e}")
+        exit(1)  # Exit the application if the model cannot be loaded
+
 
 @app.route('/runscript', methods=['POST'])
 def run_script():
@@ -43,9 +65,12 @@ def run_script():
             'status': 200
         }) 
     elif(data['type']=='2'):
+        global model
+        global tokenizer
+        result = generate_abstractive_summary(text,model,tokenizer)
         return jsonify({
-            'output': data,
-            'error': "HII",
+            'output': result,
+            'error': "",
             'status': 200
         })
     else:
@@ -57,4 +82,5 @@ def run_script():
 
 
 if __name__ == "__main__":
+    load_model() 
     app.run(debug=True)
