@@ -6,7 +6,6 @@ import pytesseract
 from PIL import Image
 import pdf2image
 DetectorFactory.seed = 0  # Ensure consistent langdetect behavior
-
 def is_hindi(text):
     """Check if the text is predominantly in Hindi."""
     try:
@@ -40,7 +39,8 @@ def extract_hindi_content(url):
 
 
 def read_pdf(pdf_path):
-    images = pdf2image.convert_from_path(pdf_path)
+    pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files\Tesseract-OCR/tesseract.exe'
+    images = pdf2image.convert_from_path(pdf_path,poppler_path=r"C:\Users\Thesis\Downloads\Release-24.02.0-0\poppler-24.02.0\Library\bin")
     text = ''
     for image in images:
         text += pytesseract.image_to_string(image, lang='hin')
