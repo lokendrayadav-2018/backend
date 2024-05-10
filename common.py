@@ -1,7 +1,10 @@
 import requests
 from bs4 import BeautifulSoup
 from langdetect import detect, DetectorFactory
-
+# import pdfplumber
+import pytesseract
+from PIL import Image
+import pdf2image
 DetectorFactory.seed = 0  # Ensure consistent langdetect behavior
 
 def is_hindi(text):
@@ -34,3 +37,11 @@ def extract_hindi_content(url):
             hindi_content.append(text)
 
     return ' '.join(hindi_content)
+
+
+def read_pdf(pdf_path):
+    images = pdf2image.convert_from_path(pdf_path)
+    text = ''
+    for image in images:
+        text += pytesseract.image_to_string(image, lang='hin')
+    return text

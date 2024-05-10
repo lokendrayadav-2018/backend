@@ -4,6 +4,7 @@ import subprocess
 import sys
 from script import generateSummary
 from common import extract_hindi_content
+from common import read_pdf
 app = Flask(__name__)
 CORS(app)  # Enable CORS
 
@@ -16,8 +17,10 @@ def run_script():
     if(data['source']=="2"):
         temp = data['url']
         text = extract_hindi_content(temp)
-    elif(data['source']==3):
-        text = data['text']
+    elif(data['source']=="3"):
+        #file = data['file']
+        file="example.pdf"
+        text = read_pdf(file)
     else:
         text = data['text']
 
