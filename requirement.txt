@@ -1,0 +1,18 @@
+1. pip install flask
+2. pip install flask_cors
+3. pip install pandas
+4. pip install nltk
+5. pip install requests
+6. pip install BeautifulSoup4
+7. pip install langdetect
+8. pip install pytesseract
+9. pip install pdf2image
+10. pip install transformers
+11. sentencepiece
+12. protobuf
+13. pip install torch torchvision torchaudio
+14.https://github.com/oschwartz10612/poppler-windows/releases/ -- poppler file
+15. pip install tesseract
+16. pip install tesseract-ocr
+https://github.com/UB-Mannheim/tesseract/wiki
+https://stackoverflow.com/questions/50951955/pytesseract-tesseractnotfound-error-tesseract-is-not-installed-or-its-not-i
