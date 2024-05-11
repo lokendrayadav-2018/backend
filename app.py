@@ -56,9 +56,13 @@ def run_script():
         text = read_pdf(file_path)
     else:
         text = data['text']
-    
+    # summary_word  =10
+    # if(data['number']):
+    #     summary_word =data['number']
+
     if(data['type']=='1'):
-        result  = generateSummary(text)
+        compression_ratio = 0.4
+        result  = generateSummary(text,compression_ratio)
         return jsonify({
             'output': result,
             'error': "",

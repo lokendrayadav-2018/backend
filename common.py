@@ -39,8 +39,8 @@ def extract_hindi_content(url):
 
 
 def read_pdf(pdf_path):
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR/tesseract.exe"
-    images = pdf2image.convert_from_path(pdf_path,poppler_path=r"C:\Users\Pankaj Yadav\Downloads\Release-24.02.0-0\poppler-24.02.0\Library\bin")
+    pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files\Tesseract-OCR/tesseract.exe'
+    images = pdf2image.convert_from_path(pdf_path,poppler_path=r"C:\Users\Thesis\Downloads\Release-24.02.0-0\poppler-24.02.0\Library\bin")
     text = ''
     for image in images:
         text += pytesseract.image_to_string(image, lang='hin')

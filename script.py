@@ -119,7 +119,8 @@ def generate_summary_rule_based(clean_sentences,compression_ratio):
         summary+=sentence.strip()+"| "
     return summary
 
-def generateSummary(sample):
+def generateSummary(sample,compression_ratio):
     clean_sentences=get_clean_sentences(sample)
-    summary_rule_based=generate_summary_rule_based(clean_sentences,0.4)
+    print(compression_ratio)
+    summary_rule_based=generate_summary_rule_based(clean_sentences,compression_ratio)
     return summary_rule_based
