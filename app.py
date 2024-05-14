@@ -3,6 +3,7 @@ from flask_cors import CORS
 import subprocess
 import sys
 import os
+import torch
 from werkzeug.utils import secure_filename
 from script import generateSummary
 from common import extract_hindi_content
@@ -29,7 +30,8 @@ def load_model():
         check_pt = "csebuetnlp/mT5_multilingual_XLSum"
         print("Loading the T5 model and tokenizer...")
         tokenizer = AutoTokenizer.from_pretrained(check_pt)
-        model = AutoModelForSeq2SeqLM.from_pretrained(check_pt)
+        #model = AutoModelForSeq2SeqLM.from_pretrained(check_pt)
+        model = torch.load("E:\checkpoint_t5.pth",map_location=torch.device('cpu'))
         print("Model and tokenizer successfully loaded.")
     except Exception as e:
         print(f"An error occurred while loading the model: {e}")
